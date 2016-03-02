@@ -17,18 +17,28 @@ void setup ()
     
     
 
-   for(NUM_ROWS = 10; NUM_ROWS <= 399; NUM_ROWS+= 5)
+   for(int row =0; row< NUM_ROWS; row++)
    {
-    for(NUM_COLS = 10; NUM_COLS <= 399; NUM_COLS += 5)
+    for(int collumn =0; collumn < NUM_COLS; collumn++)
     {
-        MSButton button1 = new MSButton(NUM_COLS, NUM_ROWS);
+        MSButton button1 = new MSButton(row, collumn);
     }
    }
-    setBombs();
+    //setBombs();
 }
 public void setBombs()
 {
-    //your code
+    while(bombs.size() < 10)
+    {
+        int ro = (int)(Math.random() * NUM_ROWS);
+        int coll = (int)(Math.random() * NUM_COLS);
+        if(!bombs.contains(buttons[ro][coll]))
+        {
+            bombs.add(buttons[ro][coll]);
+        }
+    }
+
+    }
 }
 
 public void draw ()
@@ -69,6 +79,7 @@ public class MSButton
         label = "";
         marked = clicked = false;
         Interactive.add( this ); // register it with the manager
+        if(isValid(row,col))
     }
     public boolean isMarked()
     {
@@ -90,8 +101,8 @@ public class MSButton
     {    
         if (marked)
             fill(0);
-        // else if( clicked && bombs.contains(this) ) 
-        //     fill(255,0,0);
+        else if( clicked && bombs.contains(this) ) 
+            fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
