@@ -79,7 +79,7 @@ public class MSButton
         label = "";
         marked = clicked = false;
         Interactive.add( this ); // register it with the manager
-        if(isValid(row,col))
+        
     }
     public boolean isMarked()
     {
@@ -94,7 +94,24 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        //your code here
+        if(keyPressed)
+            marked = !marked;
+        else if(bomb.contains(this))
+        {
+            displayLosingMessage();
+            gameOver = true;
+        }
+        else if(counter(r,c) > 0)
+            label = "" + countBombs(r,c);
+        else
+        {
+            if(isValid(r-1,c) && !buttons[r-1][c].clicked)
+                buttons[r-1][c].mousePressed();
+            if(isValid(r+1,c) && !buttons[r+1][c].clicked)
+                buttons[r+1][c].mousePressed();
+            if(isValid(r,c-1) && !buttons[r][c-1].clicked)
+                buttons[r][c-1].mousePressed();
+        }
     }
 
     public void draw () 
