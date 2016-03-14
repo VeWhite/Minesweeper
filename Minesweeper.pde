@@ -5,7 +5,7 @@ int NUM_ROWS = 20;
 int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
-
+private boolean gameOver = false;
 
 void setup ()
 {
@@ -24,7 +24,7 @@ void setup ()
         MSButton button1 = new MSButton(row, collumn);
     }
    }
-    //setBombs();
+    setBombs();
 }
 public void setBombs()
 {
@@ -44,12 +44,17 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
+    if(isWon() && !gameOver)
+    {
         displayWinningMessage();
+        gameOver = true;
+    }
 }
 public boolean isWon()
 {
-    //your code here
+    for(int r = 0; c <NUM_ROWS; r++)
+        for(int c = 0; c <NUM_COLS, c++)
+            if(bombs.)
     return false;
 }
 public void displayLosingMessage()
