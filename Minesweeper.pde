@@ -52,18 +52,37 @@ public void draw ()
 }
 public boolean isWon()
 {
-    for(int r = 0; c <NUM_ROWS; r++)
-        for(int c = 0; c <NUM_COLS, c++)
-            if(bombs.)
-    return false;
+    for(int r = 0; r < NUM_ROWS; r++)
+        for(int c = 0; c < NUM_COLS; c++)
+            if(!buttons[r][c].isMarked() && !buttons[r][c].isClicked())
+                return false;
+    return true;
 }
 public void displayLosingMessage()
 {
-    //your code here
+    /*for(int r = 0; r < NUM_ROWS; r++)
+        for(int c = 0; c < NUM_COLS; c++)
+            if(bombs.contains(buttons[r][c]))
+                buttons[r][c].setlabel("M");
+            String message = new String("game Over!");
+            for(int i = 0; i < message.length(); i++)
+            {
+                buttons[9][i+5].clicked = true;
+                if(!bombs.contains(buttons[9][i+5]))
+                    bombs.add(buttons[9][i+5]);
+                //buttons[9][i+5].setlabel(message.substring(i,i+1));
+            }*/
 }
 public void displayWinningMessage()
 {
-    text("You Win!", 10,3);
+    String message = new String("You Win!");
+    for(int i = 0; i < message.length(); i++)
+    {
+        buttons[9][i+6].clicked = true;
+        if(!bombs.contains(buttons[9][i+6]))
+            bombs.add(buttons[9][i+6]);
+        //buttons[9][i+6].setlabel(message.substring(i,i+1));
+    }
 }
 
 public class MSButton
@@ -98,13 +117,14 @@ public class MSButton
     
     public void mousePressed () 
     {
+        if(gameOver) return;
         clicked = true;
         if(keyPressed)
             marked = !marked;
         else if(bombs.contains(this))
         {
             displayLosingMessage();
-            //gameOver = true;
+            gameOver = true;
         }
         //else if(counter(r,c) > 0)
            // label = "" + countBombs(r,c);
